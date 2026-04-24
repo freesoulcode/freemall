@@ -1,0 +1,21 @@
+{
+  "login": {
+    "title": "FreeMall 管理后台",
+    "subtitle": "请输入您的账号密码进行登录",
+    "username": "用户名",
+    "usernamePlaceholder": "请输入用户名",
+    "password": "密码",
+    "passwordPlaceholder": "请输入密码",
+    "submit": "立即登录",
+    "submitting": "登录中...",
+    "error": "登录失败，请检查用户名或密码"
+  },
+  "app": {
+    "welcome": "欢迎回来, {{username}}!",
+    "successMessage": "您已成功登录 FreeMall 管理后台。",
+    "logout": "退出登录"
+  },
+  "common": {
+    "language": "语言"
+  }
+}

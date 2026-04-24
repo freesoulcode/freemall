@@ -1,0 +1,21 @@
+{
+  "login": {
+    "title": "FreeMall Admin",
+    "subtitle": "Please enter your account and password to login",
+    "username": "Username",
+    "usernamePlaceholder": "Enter your username",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "submit": "Login",
+    "submitting": "Logging in...",
+    "error": "Login failed, please check your username or password"
+  },
+  "app": {
+    "welcome": "Welcome back, {{username}}!",
+    "successMessage": "You have successfully logged into the FreeMall Admin Backend.",
+    "logout": "Logout"
+  },
+  "common": {
+    "language": "Language"
+  }
+}

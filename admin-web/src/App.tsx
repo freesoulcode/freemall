@@ -2,8 +2,11 @@ import { useState } from "react";
 import LoginPage from "./pages/Login";
 import { Button } from "@/components/ui/button";
 import { logoutApi } from "./api/auth";
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "./components/LanguageSwitcher";
 
 function App() {
+  const { t } = useTranslation();
   const [token, setToken] = useState<string | null>(localStorage.getItem("token"));
   const [username, setUsername] = useState<string | null>(localStorage.getItem("username"));
 
@@ -31,9 +34,16 @@ function App() {
 
   return (
     <div className="flex min-h-svh flex-col items-center justify-center space-y-4">
-      <div className="text-2xl font-bold">欢迎回来, {username}!</div>
-      <p className="text-gray-600">您已成功登录 FreeMall 管理后台。</p>
-      <Button onClick={handleLogout} variant="outline">退出登录</Button>
+      <div className="absolute top-4 right-4">
+        <LanguageSwitcher />
+      </div>
+      <div className="text-2xl font-bold">
+        {t('app.welcome', { username: username || '' })}
+      </div>
+      <p className="text-gray-600">{t('app.successMessage')}</p>
+      <Button onClick={handleLogout} variant="outline">
+        {t('app.logout')}
+      </Button>
     </div>
   );
 }

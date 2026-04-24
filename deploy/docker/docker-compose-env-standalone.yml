@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    restart: always
+  nacos:
+    image: nacos/nacos-server:v3.2.0
+    container_name: nacos
+    ports:
+      - "8080:8080"
+      - "8848:8848"
+      - "9848:9848"
+    environment:
+      MODE: standalone
+      NACOS_AUTH_TOKEN: YS12ZXJ5LWxvbmctYW5kLXNlY3VyZS1zZWNyZXQta2V5LWZvci1uYWNvcy0yMDI1
+      NACOS_AUTH_IDENTITY_KEY: nacos-auth-identity
+      NACOS_AUTH_IDENTITY_VALUE: nacos-auth-identity-value
+    volumes:
+      - ./nacos/logs:/home/nacos/logs
+    restart: always

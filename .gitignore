@@ -34,3 +34,7 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Docker Volumes ###
+deploy/docker/mysql
+deploy/docker/nacos

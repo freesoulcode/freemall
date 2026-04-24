@@ -1,0 +1,61 @@
+{
+  "login": {
+    "title": "Merchant Login",
+    "subtitle": "Welcome back, please login to your merchant dashboard",
+    "username": "Username",
+    "usernamePlaceholder": "Enter your username",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "submit": "Login Now",
+    "submitting": "Logging in...",
+    "error": "Login failed, please check your username or password",
+    "noAccount": "Don't have an account? Join now"
+  },
+  "register": {
+    "title": "Merchant Onboarding",
+    "subtitle": "Join FreeMall and start your e-commerce journey",
+    "username": "Username",
+    "usernamePlaceholder": "Enter your username",
+    "email": "Email Address",
+    "emailPlaceholder": "Enter your email",
+    "phone": "Phone Number",
+    "phonePlaceholder": "Enter your phone number",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "submit": "Register Now",
+    "submitting": "Registering...",
+    "hasAccount": "Already have an account? Login",
+    "validation": {
+      "usernameRequired": "Username is required",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Invalid email format",
+      "phoneRequired": "Phone number is required",
+      "phoneInvalid": "Invalid phone number format",
+      "passwordRequired": "Password is required",
+      "passwordMin": "Password must be at least 6 characters"
+    }
+  },
+  "verify": {
+    "title": "Account Verification",
+    "subtitle": "Verification code sent to your phone/email, please enter the 6-digit code",
+    "demoHint": "(Demo environment: enter 123456)",
+    "code": "Verification Code",
+    "codePlaceholder": "000000",
+    "submit": "Confirm Verification",
+    "submitting": "Verifying...",
+    "error": "Verification failed, please check the code",
+    "validation": {
+      "codeRequired": "Verification code is required",
+      "codeLength": "Code must be 6 digits"
+    }
+  },
+  "dashboard": {
+    "welcome": "Merchant Dashboard - Welcome back, {{username}}!",
+    "success": "You have successfully logged into the FreeMall Merchant Backend.",
+    "manageStore": "Manage Store",
+    "logout": "Logout"
+  },
+  "common": {
+    "loading": "Loading..."
+  }
+}

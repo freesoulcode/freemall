@@ -1,0 +1,61 @@
+{
+  "login": {
+    "title": "商家登录",
+    "subtitle": "欢迎回来，请登录您的商家后台",
+    "username": "用户名",
+    "usernamePlaceholder": "请输入用户名",
+    "password": "密码",
+    "passwordPlaceholder": "请输入密码",
+    "submit": "立即登录",
+    "submitting": "正在登录...",
+    "error": "登录失败，请检查用户名或密码",
+    "noAccount": "还没有账号？立即入驻"
+  },
+  "register": {
+    "title": "商家入驻",
+    "subtitle": "加入 FreeMall，开启您的电商之旅",
+    "username": "用户名",
+    "usernamePlaceholder": "请输入用户名",
+    "email": "电子邮箱",
+    "emailPlaceholder": "请输入邮箱",
+    "phone": "手机号码",
+    "phonePlaceholder": "请输入手机号",
+    "password": "密码",
+    "passwordPlaceholder": "请输入密码",
+    "submit": "立即注册",
+    "submitting": "正在注册...",
+    "hasAccount": "已有账号？去登录",
+    "validation": {
+      "usernameRequired": "用户名不能为空",
+      "emailRequired": "邮箱不能为空",
+      "emailInvalid": "邮箱格式不正确",
+      "phoneRequired": "手机号不能为空",
+      "phoneInvalid": "手机号格式不正确",
+      "passwordRequired": "密码不能为空",
+      "passwordMin": "密码长度不能少于 6 位"
+    }
+  },
+  "verify": {
+    "title": "账号验证",
+    "subtitle": "验证码已发送至您的手机/邮箱，请输入 6 位验证码",
+    "demoHint": "(演示环境请直接输入: 123456)",
+    "code": "验证码",
+    "codePlaceholder": "000000",
+    "submit": "确认验证",
+    "submitting": "正在验证...",
+    "error": "验证失败，请检查验证码",
+    "validation": {
+      "codeRequired": "验证码不能为空",
+      "codeLength": "验证码必须为 6 位"
+    }
+  },
+  "dashboard": {
+    "welcome": "商家工作台 - 欢迎回来, {{username}}!",
+    "success": "您已成功登录 FreeMall 商家后台。",
+    "manageStore": "进入店铺管理",
+    "logout": "退出登录"
+  },
+  "common": {
+    "loading": "加载中..."
+  }
+}

@@ -23,6 +23,7 @@
         <module>freemall-payment</module>
         <module>freemall-inventory</module>
         <module>freemall-bff-admin</module>
+        <module>freemall-bff-seller</module>
     </modules>
 
     <properties>

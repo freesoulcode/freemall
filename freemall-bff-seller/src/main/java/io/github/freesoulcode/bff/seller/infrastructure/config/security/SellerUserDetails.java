@@ -18,6 +18,10 @@ public class SellerUserDetails implements UserDetails {
         this.merchant = merchant;
     }
 
+    public Long getId() {
+        return merchant.getId();
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singletonList(new SimpleGrantedAuthority("ROLE_SELLER"));

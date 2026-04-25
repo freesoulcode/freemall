@@ -49,6 +49,34 @@
       "codeLength": "Code must be 6 digits"
     }
   },
+  "qualification": {
+    "title": "Business Qualification",
+    "subtitle": "Submit your business information for review",
+    "companyName": "Company Name",
+    "companyNamePlaceholder": "Enter company name",
+    "businessLicenseUrl": "Business License URL",
+    "businessLicensePlaceholder": "https://example.com/license.jpg",
+    "businessLicenseHint": "Please upload your business license image and provide the URL",
+    "taxId": "Tax Registration ID",
+    "taxIdPlaceholder": "Enter tax ID (15-20 digits/letters)",
+    "legalPerson": "Legal Representative",
+    "legalPersonPlaceholder": "Enter legal representative name",
+    "contactPhone": "Contact Phone",
+    "contactPhonePlaceholder": "Enter contact phone number",
+    "submit": "Submit for Review",
+    "submitting": "Submitting...",
+    "error": "Submission failed, please try again",
+    "validation": {
+      "companyNameRequired": "Company name is required",
+      "businessLicenseRequired": "Business license URL is required",
+      "businessLicenseInvalid": "Please enter a valid URL",
+      "taxIdRequired": "Tax ID is required",
+      "taxIdInvalid": "Tax ID must be 15-20 digits/letters",
+      "legalPersonRequired": "Legal representative is required",
+      "contactPhoneRequired": "Contact phone is required",
+      "contactPhoneInvalid": "Invalid phone number format"
+    }
+  },
   "dashboard": {
     "welcome": "Merchant Dashboard - Welcome back, {{username}}!",
     "success": "You have successfully logged into the FreeMall Merchant Backend.",

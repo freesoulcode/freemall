@@ -35,8 +35,10 @@ build/
 ### Mac OS ###
 .DS_Store
 
-### Docker Volumes ###
-deploy/docker/mysql
-deploy/docker/nacos
-deploy/docker/redis
-deploy/docker/rustfs
+### Docker Volumes (数据目录，不包含配置文件) ###
+deploy/docker/mysql/data/
+deploy/docker/mysql/#innodb_redo/
+deploy/docker/mysql/#innodb_temp/
+deploy/docker/nacos/logs/
+deploy/docker/redis/data/
+deploy/docker/rustfs/data/

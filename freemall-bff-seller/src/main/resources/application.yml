@@ -2,6 +2,12 @@ spring:
   application:
     name: freemall-bff-seller
 
+  cloud:
+    nacos:
+      server-addr: ${NACOS_ADDR:localhost:8848}
+      discovery:
+        enabled: true
+
   
   # Redis配置
   data:
@@ -20,10 +26,11 @@ spring:
   datasource:
     url: jdbc:mysql://${MYSQL_HOST:127.0.0.1}:${MYSQL_PORT:3306}/${MYSQL_DB:freemall_merchant}?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
     username: ${MYSQL_USER:root}
-    password: ${MYSQL_PASSWORD:root}
+    password: ${MYSQL_PASSWORD:password}
     driver-class-name: com.mysql.cj.jdbc.Driver
+
   config:
-    import: optional:optional:nacos:${spring:application:name}:yaml
+    import: optional:nacos:${spring.application.name}.yaml
 
 mybatis-plus:
   configuration:

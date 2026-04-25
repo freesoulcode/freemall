@@ -2,11 +2,12 @@ import { useState } from "react";
 import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
 import VerifyPage from "./pages/Verify";
+import QualificationPage from "./pages/Qualification";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "./components/LanguageSwitcher";
 
-type PageState = 'login' | 'register' | 'verify' | 'dashboard';
+type PageState = 'login' | 'register' | 'verify' | 'qualification' | 'dashboard';
 
 function App() {
   const { t } = useTranslation();
@@ -31,6 +32,10 @@ function App() {
   };
 
   const handleVerifySuccess = () => {
+    setPage('qualification');
+  };
+
+  const handleQualificationSuccess = () => {
     setPage('login');
   };
 
@@ -66,6 +71,13 @@ function App() {
         <VerifyPage 
           merchantId={pendingMerchantId} 
           onVerifySuccess={handleVerifySuccess} 
+        />
+      )}
+
+      {page === 'qualification' && pendingMerchantId && (
+        <QualificationPage 
+          merchantId={pendingMerchantId}
+          onSubmitSuccess={handleQualificationSuccess}
         />
       )}
 

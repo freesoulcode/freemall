@@ -43,3 +43,19 @@ export const loginApi = (params: LoginParams) => {
     body: JSON.stringify(params),
   });
 };
+
+export interface QualificationParams {
+  merchantId: number;
+  companyName: string;
+  businessLicenseUrl: string;
+  taxId: string;
+  legalPerson: string;
+  contactPhone: string;
+}
+
+export const submitQualificationApi = (params: QualificationParams) => {
+  return request<void>('/qualification/submit', {
+    method: 'POST',
+    body: JSON.stringify(params),
+  });
+};

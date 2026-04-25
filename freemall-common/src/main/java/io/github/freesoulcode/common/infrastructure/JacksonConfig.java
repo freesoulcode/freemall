@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,13 +15,16 @@ public class JacksonConfig {
     public ObjectMapper objectMapper() {
         ObjectMapper mapper = new ObjectMapper();
         
+        // 注册 JavaTimeModule 支持 Java 8 时间类型
+        mapper.registerModule(new JavaTimeModule());
+        
         // Long 类型序列化为 String，避免前端精度丢失
         SimpleModule simpleModule = new SimpleModule();
         simpleModule.addSerializer(Long.class, ToStringSerializer.instance);
         simpleModule.addSerializer(Long.TYPE, ToStringSerializer.instance);
         mapper.registerModule(simpleModule);
         
-        // 禁用将日期序列化为时间戳
+        // 禁用将日期序列化为时间戳，使用 ISO-8601 格式
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         
         return mapper;

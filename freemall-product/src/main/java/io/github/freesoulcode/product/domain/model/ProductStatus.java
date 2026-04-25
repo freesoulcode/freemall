@@ -19,4 +19,14 @@ public enum ProductStatus {
     private final Integer code;
     private final String name;
     private final String description;
+
+    public static ProductStatus fromCode(Integer code) {
+        if (code == null) return null;
+        for (ProductStatus status : values()) {
+            if (status.code.equals(code)) {
+                return status;
+            }
+        }
+        return null;
+    }
 }

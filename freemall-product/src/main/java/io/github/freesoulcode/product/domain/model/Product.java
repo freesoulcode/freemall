@@ -5,6 +5,7 @@ import io.github.freesoulcode.product.domain.BizErrorCode;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.Instant;
 import java.util.List;
 
 @Data
@@ -39,6 +40,14 @@ public class Product {
      */
     private ProductStatus status;
     /**
+     * 创建时间（UTC）
+     */
+    private Instant createTime;
+    /**
+     * 更新时间（UTC）
+     */
+    private Instant updateTime;
+    /**
      * sku列表
      */
     private List<Sku> skus ;
@@ -56,5 +65,21 @@ public class Product {
     public void onShelf() {
         //
         this.status = ProductStatus.ON_SHELF;
+    }
+
+    public void offShelf() {
+        if (this.status != ProductStatus.ON_SHELF) {
+            throw new BusinessException(BizErrorCode.PRODUCT_STATUS_INVALID, "当前状态不允许下架");
+        }
+        this.status = ProductStatus.OFF_SHELF;
+    }
+
+    public void update(String name, String description, List<Sku> skus) {
+        if (this.status == ProductStatus.ON_SHELF) {
+            throw new BusinessException(BizErrorCode.PRODUCT_STATUS_INVALID, "上架商品不能修改");
+        }
+        this.name = name;
+        this.description = description;
+        this.skus = skus;
     }
 }

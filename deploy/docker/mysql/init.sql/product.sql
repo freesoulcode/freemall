@@ -52,8 +52,8 @@ CREATE TABLE IF NOT EXISTS `product_spu` (
     `images` text COMMENT '图片列表JSON',
     `description` text COMMENT '商品描述',
     `status` tinyint(4) DEFAULT '0' COMMENT '状态：0-下架，1-上架，2-审核中',
-    `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `create_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间（UTC）',
+    `update_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间（UTC）',
     PRIMARY KEY (`id`),
     KEY `idx_category_id` (`category_id`),
     KEY `idx_brand_id` (`brand_id`),
@@ -73,8 +73,8 @@ CREATE TABLE IF NOT EXISTS `product_sku` (
     `stock` int(11) DEFAULT '0' COMMENT '库存',
     `image` varchar(256) DEFAULT NULL COMMENT '主图',
     `status` tinyint(4) DEFAULT '1' COMMENT '状态：0-禁用，1-启用',
-    `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `create_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间（UTC）',
+    `update_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间（UTC）',
     PRIMARY KEY (`id`),
     KEY `idx_spu_id` (`spu_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='商品SKU表';

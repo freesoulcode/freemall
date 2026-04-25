@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
 
 interface LoginPageProps {
-  onLoginSuccess: (token: string, username: string) => void;
+  onLoginSuccess: (token: string, username: string, merchantId: string) => void;
   onGoToRegister: () => void;
 }
 
@@ -33,7 +33,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess, onGoToRegister })
 
     try {
       const data = await loginApi({ username, password });
-      onLoginSuccess(data.token, data.username);
+      onLoginSuccess(data.token, data.username, data.merchantId);
     } catch (err: any) {
       setServerError(err.message || t('login.error'));
     } finally {

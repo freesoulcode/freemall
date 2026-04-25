@@ -87,6 +87,40 @@
     "logout": "Logout"
   },
   "common": {
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "submitting": "Submitting..."
+  },
+  "product": {
+    "title": "Product Management",
+    "create": "Create Product",
+    "createTitle": "Create New Product",
+    "empty": "No products yet",
+    "name": "Product Name",
+    "subTitle": "Sub Title",
+    "description": "Description",
+    "status": "Status",
+    "skuCount": "SKU Count",
+    "createTime": "Create Time",
+    "actions": "Actions",
+    "publish": "Publish",
+    "offline": "Offline",
+    "delete": "Delete",
+    "loadError": "Failed to load products",
+    "createError": "Failed to create product",
+    "confirmDelete": "Are you sure you want to delete this product?",
+    "skuList": "SKU List",
+    "addSku": "Add SKU",
+    "skuName": "SKU Name",
+    "price": "Price",
+    "stock": "Stock",
+    "validation": {
+      "nameRequired": "Product name is required",
+      "skuRequired": "At least one SKU is required",
+      "skuNameRequired": "SKU name is required",
+      "priceRequired": "Price is required",
+      "stockRequired": "Stock is required"
+    }
   }
 }

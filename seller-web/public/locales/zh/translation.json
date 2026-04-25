@@ -87,6 +87,40 @@
     "logout": "退出登录"
   },
   "common": {
-    "loading": "加载中..."
+    "loading": "加载中...",
+    "cancel": "取消",
+    "submit": "提交",
+    "submitting": "提交中..."
+  },
+  "product": {
+    "title": "商品管理",
+    "create": "新建商品",
+    "createTitle": "新建商品",
+    "empty": "暂无商品",
+    "name": "商品名称",
+    "subTitle": "商品副标题",
+    "description": "商品描述",
+    "status": "状态",
+    "skuCount": "SKU数量",
+    "createTime": "创建时间",
+    "actions": "操作",
+    "publish": "上架",
+    "offline": "下架",
+    "delete": "删除",
+    "loadError": "加载商品列表失败",
+    "createError": "创建商品失败",
+    "confirmDelete": "确定删除此商品？",
+    "skuList": "SKU列表",
+    "addSku": "添加SKU",
+    "skuName": "规格名称",
+    "price": "价格",
+    "stock": "库存",
+    "validation": {
+      "nameRequired": "商品名称不能为空",
+      "skuRequired": "至少需要一个SKU",
+      "skuNameRequired": "SKU名称不能为空",
+      "priceRequired": "价格不能为空",
+      "stockRequired": "库存不能为空"
+    }
   }
 }

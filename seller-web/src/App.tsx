@@ -3,11 +3,13 @@ import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
 import VerifyPage from "./pages/Verify";
 import QualificationPage from "./pages/Qualification";
+import ProductListPage from "./pages/ProductList";
+import ProductFormPage from "./pages/ProductForm";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "./components/LanguageSwitcher";
 
-type PageState = 'login' | 'register' | 'verify' | 'qualification' | 'dashboard';
+type PageState = 'login' | 'register' | 'verify' | 'qualification' | 'dashboard' | 'productList' | 'productForm';
 
 function App() {
   const { t } = useTranslation();
@@ -16,13 +18,16 @@ function App() {
   );
   const [token, setToken] = useState<string | null>(localStorage.getItem("seller_token"));
   const [username, setUsername] = useState<string | null>(localStorage.getItem("seller_username"));
+  const [merchantId, setMerchantId] = useState<string | null>(localStorage.getItem("seller_merchant_id"));
   const [pendingMerchantId, setPendingMerchantId] = useState<string | null>(null);
 
-  const handleLoginSuccess = (newToken: string, newUsername: string) => {
+  const handleLoginSuccess = (newToken: string, newUsername: string, newMerchantId: string) => {
     localStorage.setItem("seller_token", newToken);
     localStorage.setItem("seller_username", newUsername);
+    localStorage.setItem("seller_merchant_id", newMerchantId);
     setToken(newToken);
     setUsername(newUsername);
+    setMerchantId(newMerchantId);
     setPage('dashboard');
   };
 
@@ -42,8 +47,10 @@ function App() {
   const handleLogout = () => {
     localStorage.removeItem("seller_token");
     localStorage.removeItem("seller_username");
+    localStorage.removeItem("seller_merchant_id");
     setToken(null);
     setUsername(null);
+    setMerchantId(null);
     setPage('login');
   };
 
@@ -81,17 +88,32 @@ function App() {
         />
       )}
 
-      {page === 'dashboard' && token && (
+      {page === 'dashboard' && token && merchantId && (
         <div className="flex min-h-svh flex-col items-center justify-center space-y-4">
           <div className="text-2xl font-bold">
             {t('dashboard.welcome', { username: username || '' })}
           </div>
           <p className="text-gray-600">{t('dashboard.success')}</p>
           <div className="flex gap-4">
-             <Button variant="default">{t('dashboard.manageStore')}</Button>
+             <Button onClick={() => setPage('productList')}>{t('dashboard.manageStore')}</Button>
              <Button onClick={handleLogout} variant="outline">{t('dashboard.logout')}</Button>
           </div>
         </div>
+      )}
+
+      {page === 'productList' && merchantId && (
+        <ProductListPage 
+          merchantId={merchantId}
+          onCreateNew={() => setPage('productForm')}
+        />
+      )}
+
+      {page === 'productForm' && merchantId && (
+        <ProductFormPage 
+          merchantId={merchantId}
+          onSuccess={() => setPage('productList')}
+          onCancel={() => setPage('productList')}
+        />
       )}
     </div>
   );

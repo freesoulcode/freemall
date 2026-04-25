@@ -1,14 +1,11 @@
-package io.github.freesoulcode.product.application.request;
+package io.github.freesoulcode.bff.seller.infrastructure.external.product.dto;
 
-import lombok.Builder;
 import lombok.Data;
-
-import java.time.Instant;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Data
-@Builder
-public class GetProductResponse {
+public class RemoteProductResponse {
     private String id;
     private String merchantId;
     private String name;
@@ -16,12 +13,9 @@ public class GetProductResponse {
     private String description;
     private Integer status;
     private String statusName;
-    private Instant createTime;
-    private Instant updateTime;
     private List<SkuResponse> skus;
 
     @Data
-    @Builder
     public static class SkuResponse {
         private String id;
         private String productId;

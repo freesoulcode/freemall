@@ -43,6 +43,7 @@ public class SellerAuthApplicationService {
                 .token(token)
                 .username(userDetails.getUsername())
                 .role("SELLER")
+                .merchantId(String.valueOf(userDetails.getId()))
                 .build();
     }
 }

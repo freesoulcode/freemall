@@ -21,6 +21,7 @@ export interface LoginResponse {
   token: string;
   username: string;
   role: string;
+  merchantId: string;
 }
 
 export const registerApi = (params: RegisterParams): Promise<string> => {

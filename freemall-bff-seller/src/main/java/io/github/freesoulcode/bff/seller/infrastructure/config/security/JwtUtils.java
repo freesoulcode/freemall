@@ -1,4 +1,4 @@
-package io.github.freesoulcode.bff.seller.infrastructure.security;
+package io.github.freesoulcode.bff.seller.infrastructure.config.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

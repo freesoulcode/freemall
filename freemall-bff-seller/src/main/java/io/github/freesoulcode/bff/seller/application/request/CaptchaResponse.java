@@ -1,4 +1,4 @@
-package io.github.freesoulcode.bff.seller.application.service;
+package io.github.freesoulcode.bff.seller.application.request;
 
 import lombok.Builder;
 import lombok.Data;
@@ -10,7 +10,7 @@ import lombok.Data;
  */
 @Data
 @Builder
-public class CaptchaVO {
+public class CaptchaResponse {
     /**
      * 验证码唯一ID
      */

@@ -1,6 +1,6 @@
-package io.github.freesoulcode.bff.seller.infrastructure.config.config;
+package io.github.freesoulcode.bff.seller.infrastructure.config;
 
-import io.github.freesoulcode.bff.seller.infrastructure.security.JwtAuthenticationFilter;
+import io.github.freesoulcode.bff.seller.infrastructure.config.security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

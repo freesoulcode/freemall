@@ -1,4 +1,4 @@
-package io.github.freesoulcode.bff.seller.infrastructure.config.storage;
+package io.github.freesoulcode.bff.seller.infrastructure.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

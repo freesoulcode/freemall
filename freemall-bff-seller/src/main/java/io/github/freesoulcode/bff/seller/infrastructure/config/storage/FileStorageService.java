@@ -1,5 +1,6 @@
-package io.github.freesoulcode.bff.seller.infrastructure.storage;
+package io.github.freesoulcode.bff.seller.infrastructure.config.storage;
 
+import io.github.freesoulcode.bff.seller.infrastructure.config.RustFSConfig;
 import io.github.freesoulcode.common.interfaces.BusinessException;
 import io.github.freesoulcode.common.interfaces.SystemErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.*;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
+import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

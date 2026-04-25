@@ -1,10 +1,10 @@
 package io.github.freesoulcode.bff.seller.interfaces.web;
 
-import io.github.freesoulcode.bff.seller.application.service.CaptchaService;
-import io.github.freesoulcode.bff.seller.application.service.CaptchaVO;
-import io.github.freesoulcode.bff.seller.application.service.MerchantQualificationService;
+import io.github.freesoulcode.bff.seller.application.request.CaptchaResponse;
 import io.github.freesoulcode.bff.seller.application.request.SubmitQualificationRequest;
 import io.github.freesoulcode.bff.seller.application.request.VerifyCaptchaRequest;
+import io.github.freesoulcode.bff.seller.application.service.CaptchaService;
+import io.github.freesoulcode.bff.seller.application.service.MerchantQualificationService;
 import io.github.freesoulcode.common.interfaces.Result;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -29,7 +29,7 @@ public class MerchantQualificationController {
 
     @Operation(summary = "获取滑块验证码")
     @GetMapping("/captcha")
-    public Result<CaptchaVO> getCaptcha() {
+    public Result<CaptchaResponse> getCaptcha() {
         return Result.success(captchaService.generate());
     }
 

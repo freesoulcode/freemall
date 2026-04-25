@@ -1,9 +1,9 @@
 package io.github.freesoulcode.bff.seller.application.service;
 
-import io.github.freesoulcode.bff.seller.application.service.CaptchaService;
+
+import io.github.freesoulcode.bff.seller.infrastructure.config.storage.FileStorageService;
 import io.github.freesoulcode.bff.seller.infrastructure.external.merchant.MerchantClient;
 import io.github.freesoulcode.bff.seller.infrastructure.external.merchant.dto.RemoteMerchantQualificationRequest;
-import io.github.freesoulcode.bff.seller.infrastructure.storage.FileStorageService;
 import io.github.freesoulcode.common.interfaces.BusinessException;
 import io.github.freesoulcode.common.interfaces.SystemErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 商家资质应用服务 (BFF层)
- * 负责协调验证码校验、文件上传和调用后端服务
  *
  * @author freesoulcode
  */
@@ -27,13 +26,13 @@ public class MerchantQualificationService {
     /**
      * 提交商家资质
      *
-     * @param merchantId 商家ID
-     * @param captchaToken 验证码token
+     * @param merchantId          商家ID
+     * @param captchaToken        验证码token
      * @param businessLicenseFile 营业执照文件
-     * @param companyName 公司名称
-     * @param taxId 税务登记证号
-     * @param legalPerson 法人姓名
-     * @param contactPhone 联系电话
+     * @param companyName         公司名称
+     * @param taxId               税务登记证号
+     * @param legalPerson         法人姓名
+     * @param contactPhone        联系电话
      */
     public void submitQualification(
             Long merchantId,

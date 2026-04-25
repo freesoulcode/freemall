@@ -1,4 +1,4 @@
-package io.github.freesoulcode.bff.seller.infrastructure.config.external.merchant.dto;
+package io.github.freesoulcode.bff.seller.infrastructure.external.merchant.dto;
 
 import lombok.Data;
 

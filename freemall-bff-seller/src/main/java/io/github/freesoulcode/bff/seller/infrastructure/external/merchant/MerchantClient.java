@@ -1,4 +1,4 @@
-package io.github.freesoulcode.bff.seller.infrastructure.config.external.merchant;
+package io.github.freesoulcode.bff.seller.infrastructure.external.merchant;
 
 import io.github.freesoulcode.bff.seller.infrastructure.external.merchant.dto.RemoteMerchantAuthResponse;
 import io.github.freesoulcode.bff.seller.infrastructure.external.merchant.dto.RemoteMerchantQualificationRequest;

@@ -1,6 +1,7 @@
 spring:
   application:
     name: freemall-bff-seller
+
   
   # Redis配置
   data:
@@ -21,6 +22,8 @@ spring:
     username: ${MYSQL_USER:root}
     password: ${MYSQL_PASSWORD:root}
     driver-class-name: com.mysql.cj.jdbc.Driver
+  config:
+    import: optional:optional:nacos:${spring:application:name}:yaml
 
 mybatis-plus:
   configuration:

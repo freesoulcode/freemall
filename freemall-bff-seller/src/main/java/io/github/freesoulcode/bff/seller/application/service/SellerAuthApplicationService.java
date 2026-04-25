@@ -2,11 +2,11 @@ package io.github.freesoulcode.bff.seller.application.service;
 
 import io.github.freesoulcode.bff.seller.application.request.SellerLoginRequest;
 import io.github.freesoulcode.bff.seller.application.request.SellerLoginResponse;
+import io.github.freesoulcode.bff.seller.infrastructure.config.security.JwtUtils;
+import io.github.freesoulcode.bff.seller.infrastructure.config.security.SellerUserDetails;
 import io.github.freesoulcode.bff.seller.infrastructure.external.merchant.MerchantClient;
 import io.github.freesoulcode.bff.seller.infrastructure.external.merchant.dto.RemoteMerchantRegisterRequest;
 import io.github.freesoulcode.bff.seller.infrastructure.external.merchant.dto.RemoteMerchantVerifyRequest;
-import io.github.freesoulcode.bff.seller.infrastructure.security.JwtUtils;
-import io.github.freesoulcode.bff.seller.infrastructure.security.SellerUserDetails;
 import io.github.freesoulcode.common.interfaces.Result;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;

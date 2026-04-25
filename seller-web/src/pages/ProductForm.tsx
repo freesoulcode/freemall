@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { createProductApi } from '../api/product';
 import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
 
 interface ProductFormPageProps {
   merchantId: string;
-  onSuccess: () => void;
-  onCancel: () => void;
 }
 
 interface SkuForm {
@@ -15,8 +14,9 @@ interface SkuForm {
   stock: string;
 }
 
-const ProductFormPage: React.FC<ProductFormPageProps> = ({ merchantId, onSuccess, onCancel }) => {
+const ProductFormPage: React.FC<ProductFormPageProps> = ({ merchantId }) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [name, setName] = useState('');
   const [subTitle, setSubTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -75,7 +75,7 @@ const ProductFormPage: React.FC<ProductFormPageProps> = ({ merchantId, onSuccess
           stock: Number(sku.stock),
         })),
       });
-      onSuccess();
+      navigate('/product/status');
     } catch (err: any) {
       setServerError(err.message || t('product.createError'));
     } finally {
@@ -84,10 +84,10 @@ const ProductFormPage: React.FC<ProductFormPageProps> = ({ merchantId, onSuccess
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-2xl">
-      <h1 className="text-2xl font-bold mb-6">{t('product.createTitle')}</h1>
+    <div className="space-y-4">
+      <h1 className="text-2xl font-bold">{t('product.createTitle')}</h1>
 
-      <form onSubmit={handleSubmit} className="space-y-6 bg-white p-6 rounded-lg shadow">
+      <form onSubmit={handleSubmit} className="space-y-6 bg-white p-6 rounded-lg shadow max-w-2xl">
         {serverError && (
           <div className="p-4 bg-red-50 text-red-700 rounded-md">{serverError}</div>
         )}
@@ -171,7 +171,7 @@ const ProductFormPage: React.FC<ProductFormPageProps> = ({ merchantId, onSuccess
         </div>
 
         <div className="flex gap-4 justify-end">
-          <Button type="button" variant="outline" onClick={onCancel}>{t('common.cancel')}</Button>
+          <Button type="button" variant="outline" onClick={() => navigate('/product/status')}>{t('common.cancel')}</Button>
           <Button type="submit" disabled={loading}>{loading ? t('common.submitting') : t('common.submit')}</Button>
         </div>
       </form>

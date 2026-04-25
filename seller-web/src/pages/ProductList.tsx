@@ -4,14 +4,15 @@ import { getProductListApi, publishProductApi, offlineProductApi, deleteProductA
 import type { Product } from '../api/product';
 import { Button } from '@/components/ui/button';
 import { formatDateTime } from '@/lib/dateUtils';
+import { useNavigate } from 'react-router-dom';
 
 interface ProductListPageProps {
   merchantId: string;
-  onCreateNew: () => void;
 }
 
-const ProductListPage: React.FC<ProductListPageProps> = ({ merchantId, onCreateNew }) => {
+const ProductListPage: React.FC<ProductListPageProps> = ({ merchantId }) => {
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -74,14 +75,14 @@ const ProductListPage: React.FC<ProductListPageProps> = ({ merchantId, onCreateN
   };
 
   if (loading) {
-    return <div className="flex justify-center items-center min-h-screen">{t('common.loading')}</div>;
+    return <div className="flex justify-center items-center min-h-[400px]">{t('common.loading')}</div>;
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex justify-between items-center mb-6">
+    <div className="space-y-4">
+      <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold">{t('product.title')}</h1>
-        <Button onClick={onCreateNew}>{t('product.create')}</Button>
+        <Button onClick={() => navigate('/product/publish')}>{t('product.create')}</Button>
       </div>
 
       {error && (

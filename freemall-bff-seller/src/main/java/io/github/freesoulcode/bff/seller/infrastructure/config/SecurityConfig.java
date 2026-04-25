@@ -37,7 +37,7 @@ public class SecurityConfig {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .logout(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**", "/qualification/**").permitAll()
+                        .requestMatchers("/auth/**", "/upload/**", "/qualification/**").permitAll()
                         .requestMatchers("/doc.html", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/webjars/**").permitAll()
                         .requestMatchers("/error").permitAll()
                         .anyRequest().authenticated()

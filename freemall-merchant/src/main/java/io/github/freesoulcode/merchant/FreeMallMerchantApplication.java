@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "io.github.freesoulcode")
 @EnableFeignClients
 public class FreeMallMerchantApplication {
     public static void main(String[] args) {

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
-import { submitQualificationApi } from '../api/merchant';
+import { submitQualificationApi, uploadLicenseApi } from '../api/merchant';
 
 interface QualificationPageProps {
-  merchantId: number;
+  merchantId: string;
   onSubmitSuccess: () => void;
 }
 
@@ -27,6 +27,7 @@ const QualificationPage: React.FC<QualificationPageProps> = ({ merchantId, onSub
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [serverError, setServerError] = useState('');
 
   const validate = () => {
@@ -38,8 +39,6 @@ const QualificationPage: React.FC<QualificationPageProps> = ({ merchantId, onSub
     
     if (!formData.businessLicenseUrl.trim()) {
       newErrors.businessLicenseUrl = t('qualification.validation.businessLicenseRequired');
-    } else if (!/^https?:\/\/.+/.test(formData.businessLicenseUrl)) {
-      newErrors.businessLicenseUrl = t('qualification.validation.businessLicenseInvalid');
     }
     
     if (!formData.taxId.trim()) {
@@ -67,6 +66,26 @@ const QualificationPage: React.FC<QualificationPageProps> = ({ merchantId, onSub
     setFormData({ ...formData, [name]: value });
     if (errors[name]) {
       setErrors({ ...errors, [name]: '' });
+    }
+  };
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    setServerError('');
+
+    try {
+      const url = await uploadLicenseApi(file, merchantId);
+      setFormData({ ...formData, businessLicenseUrl: url });
+      if (errors.businessLicenseUrl) {
+        setErrors({ ...errors, businessLicenseUrl: '' });
+      }
+    } catch (err: any) {
+      setServerError(err.message || t('qualification.uploadError'));
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -126,18 +145,26 @@ const QualificationPage: React.FC<QualificationPageProps> = ({ merchantId, onSub
             </div>
             
             <div>
-              <label htmlFor="businessLicenseUrl" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="businessLicense" className="block text-sm font-medium text-gray-700">
                 {t('qualification.businessLicenseUrl')}
               </label>
-              <input
-                id="businessLicenseUrl"
-                name="businessLicenseUrl"
-                type="url"
-                className={`mt-1 block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 ring-1 ring-inset ${errors.businessLicenseUrl ? 'ring-red-500' : 'ring-gray-300'} placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-sm sm:leading-6`}
-                placeholder={t('qualification.businessLicensePlaceholder')}
-                value={formData.businessLicenseUrl}
-                onChange={handleChange}
-              />
+              <div className="mt-1 flex items-center gap-4">
+                <label className="cursor-pointer rounded-md bg-white px-3 py-2 text-sm font-medium text-primary ring-1 ring-inset ring-primary hover:bg-primary hover:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+                  {uploading ? t('qualification.uploading') : t('qualification.selectFile')}
+                  <input
+                    id="businessLicense"
+                    name="businessLicense"
+                    type="file"
+                    accept="image/jpeg,image/png,image/jpg"
+                    className="hidden"
+                    onChange={handleFileUpload}
+                    disabled={uploading}
+                  />
+                </label>
+                {formData.businessLicenseUrl && (
+                  <span className="text-sm text-green-600">{t('qualification.uploadSuccess')}</span>
+                )}
+              </div>
               {errors.businessLicenseUrl && <p className="mt-1 text-xs text-red-500">{errors.businessLicenseUrl}</p>}
               <p className="mt-1 text-xs text-gray-400">{t('qualification.businessLicenseHint')}</p>
             </div>
@@ -195,7 +222,7 @@ const QualificationPage: React.FC<QualificationPageProps> = ({ merchantId, onSub
             <Button
               type="submit"
               className="w-full"
-              disabled={loading}
+              disabled={loading || uploading}
             >
               {loading ? t('qualification.submitting') : t('qualification.submit')}
             </Button>

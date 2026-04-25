@@ -16,7 +16,7 @@ function App() {
   );
   const [token, setToken] = useState<string | null>(localStorage.getItem("seller_token"));
   const [username, setUsername] = useState<string | null>(localStorage.getItem("seller_username"));
-  const [pendingMerchantId, setPendingMerchantId] = useState<number | null>(null);
+  const [pendingMerchantId, setPendingMerchantId] = useState<string | null>(null);
 
   const handleLoginSuccess = (newToken: string, newUsername: string) => {
     localStorage.setItem("seller_token", newToken);
@@ -26,7 +26,7 @@ function App() {
     setPage('dashboard');
   };
 
-  const handleRegisterSuccess = (merchantId: number) => {
+  const handleRegisterSuccess = (merchantId: string) => {
     setPendingMerchantId(merchantId);
     setPage('verify');
   };

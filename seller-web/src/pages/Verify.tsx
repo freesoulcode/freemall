@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
 
 interface VerifyPageProps {
-  merchantId: number;
+  merchantId: string;
   onVerifySuccess: () => void;
 }
 

@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
 
 interface RegisterPageProps {
-  onRegisterSuccess: (merchantId: number) => void;
+  onRegisterSuccess: (merchantId: string) => void;
   onGoToLogin: () => void;
 }
 

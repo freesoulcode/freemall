@@ -8,7 +8,7 @@ export interface RegisterParams {
 }
 
 export interface VerifyParams {
-  merchantId: number;
+  merchantId: string;
   code: string;
 }
 
@@ -23,11 +23,11 @@ export interface LoginResponse {
   role: string;
 }
 
-export const registerApi = (params: RegisterParams) => {
-  return request<number>('/auth/register', {
+export const registerApi = (params: RegisterParams): Promise<string> => {
+  return request('/auth/register', {
     method: 'POST',
     body: JSON.stringify(params),
-  });
+  }) as Promise<string>;
 };
 
 export const verifyApi = (params: VerifyParams) => {
@@ -45,7 +45,7 @@ export const loginApi = (params: LoginParams) => {
 };
 
 export interface QualificationParams {
-  merchantId: number;
+  merchantId: string;
   companyName: string;
   businessLicenseUrl: string;
   taxId: string;
@@ -58,4 +58,21 @@ export const submitQualificationApi = (params: QualificationParams) => {
     method: 'POST',
     body: JSON.stringify(params),
   });
+};
+
+export const uploadLicenseApi = async (file: File, merchantId: string): Promise<string> => {
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('merchantId', merchantId);
+
+  const response = await fetch('/api/upload/license', {
+    method: 'POST',
+    body: formData,
+  });
+
+  const result = await response.json();
+  if (result.code !== 200) {
+    throw new Error(result.message || '上传失败');
+  }
+  return result.data;
 };

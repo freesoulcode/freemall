@@ -1,6 +1,21 @@
 spring:
   application:
     name: freemall-bff-seller
+  
+  # Redis配置
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:password}
+      database: 0
+      timeout: 3000ms
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+  
   datasource:
     url: jdbc:mysql://${MYSQL_HOST:127.0.0.1}:${MYSQL_PORT:3306}/${MYSQL_DB:freemall_merchant}?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
     username: ${MYSQL_USER:root}
@@ -15,6 +30,33 @@ mybatis-plus:
     db-config:
       id-type: assign_id
 
+# RustFS对象存储配置
+rustfs:
+  endpoint: ${RUSTFS_ENDPOINT:http://localhost:9000}
+  access-key: ${RUSTFS_ACCESS_KEY:rustfsadmin}
+  secret-key: ${RUSTFS_SECRET_KEY:rustfsadmin123}
+  bucket-name: ${RUSTFS_BUCKET:freemall}
+  region: us-east-1
+
+# TIANAI验证码配置
+captcha:
+  # Redis key前缀
+  prefix: captcha
+  # 验证码过期时间（毫秒）
+  expire:
+    default: 120000
+    SLIDER: 120000
+  # 使用系统自带的滑块模板资源
+  init-default-resource: true
+  # 开启本地缓存提升并发性能
+  local-cache-enabled: true
+  local-cache-size: 20
+  # 二次验证配置
+  secondary:
+    enabled: true
+    expire: 120000
+    keyPrefix: "captcha:secondary"
+
 security:
   jwt:
     secret-key: freemall-secret-key-for-seller-bff-0987654321-must-be-long-enough
@@ -24,3 +66,9 @@ security:
 
 server:
   port: 8082
+
+# 日志配置
+logging:
+  level:
+    io.github.freesoulcode: debug
+    cloud.tianai.captcha: debug

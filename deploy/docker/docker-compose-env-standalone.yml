@@ -14,6 +14,7 @@ services:
       - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     restart: always
+  
   nacos:
     image: nacos/nacos-server:v3.2.0
     container_name: nacos
@@ -28,4 +29,29 @@ services:
       NACOS_AUTH_IDENTITY_VALUE: nacos-auth-identity-value
     volumes:
       - ./nacos/logs:/home/nacos/logs
+    restart: always
+  
+  redis:
+    image: redis:7.2-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis/data:/data
+    command: redis-server --appendonly yes --requirepass password
+    restart: always
+  
+  rustfs:
+    image: rustfs/rustfs:latest
+    container_name: rustfs
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - ./rustfs/data:/data
+    environment:
+      RUSTFS_ACCESS_KEY: rustfsadmin
+      RUSTFS_SECRET_KEY: rustfsadmin123
+      RUSTFS_CONSOLE_ENABLE: "true"
+    command: --console-enable /data
     restart: always

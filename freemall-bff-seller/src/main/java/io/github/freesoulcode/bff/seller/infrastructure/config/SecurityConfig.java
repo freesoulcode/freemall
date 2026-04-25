@@ -1,4 +1,4 @@
-package io.github.freesoulcode.bff.seller.infrastructure.config;
+package io.github.freesoulcode.bff.seller.infrastructure.config.config;
 
 import io.github.freesoulcode.bff.seller.infrastructure.security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;

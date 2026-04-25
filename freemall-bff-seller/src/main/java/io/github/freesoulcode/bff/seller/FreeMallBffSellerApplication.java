@@ -7,6 +7,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients
 public class FreeMallBffSellerApplication {
     public static void main(String[] args) {
-        SpringApplication.run(FreeMallBffAdminApplication.class, args);
+        SpringApplication.run(FreeMallBffSellerApplication.class, args);
     }
 }

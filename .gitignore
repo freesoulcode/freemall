@@ -38,3 +38,5 @@ build/
 ### Docker Volumes ###
 deploy/docker/mysql
 deploy/docker/nacos
+deploy/docker/redis
+deploy/docker/rustfs

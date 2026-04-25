@@ -1,7 +1,7 @@
 package io.github.freesoulcode.bff.seller.infrastructure.security;
 
-import io.github.freesoulcode.bff.seller.infrastructure.remote.merchant.MerchantClient;
-import io.github.freesoulcode.bff.seller.infrastructure.remote.merchant.dto.RemoteMerchantAuthResponse;
+import io.github.freesoulcode.bff.seller.infrastructure.external.merchant.MerchantClient;
+import io.github.freesoulcode.bff.seller.infrastructure.external.merchant.dto.RemoteMerchantAuthResponse;
 import io.github.freesoulcode.common.interfaces.Result;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

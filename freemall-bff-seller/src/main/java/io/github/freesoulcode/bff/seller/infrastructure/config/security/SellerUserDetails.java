@@ -1,6 +1,6 @@
 package io.github.freesoulcode.bff.seller.infrastructure.security;
 
-import io.github.freesoulcode.bff.seller.infrastructure.remote.merchant.dto.RemoteMerchantAuthResponse;
+import io.github.freesoulcode.bff.seller.infrastructure.external.merchant.dto.RemoteMerchantAuthResponse;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

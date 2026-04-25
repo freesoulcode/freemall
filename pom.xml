@@ -36,6 +36,8 @@
         <springdoc.version>3.0.3</springdoc.version>
         <mybatis-plus.version>3.5.15</mybatis-plus.version>
         <mapstruct.version>1.6.3</mapstruct.version>
+        <aws-sdk.version>2.31.0</aws-sdk.version>
+        <tianai-captcha.version>1.5.5</tianai-captcha.version>
     </properties>
 
     <dependencyManagement>
@@ -68,6 +70,18 @@
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>
                 <version>${mapstruct.version}</version>
+            </dependency>
+            <!-- AWS S3 SDK for RustFS -->
+            <dependency>
+                <groupId>software.amazon.awssdk</groupId>
+                <artifactId>s3</artifactId>
+                <version>${aws-sdk.version}</version>
+            </dependency>
+            <!-- TIANAI行为验证码 -->
+            <dependency>
+                <groupId>cloud.tianai.captcha</groupId>
+                <artifactId>tianai-captcha-springboot-starter</artifactId>
+                <version>${tianai-captcha.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

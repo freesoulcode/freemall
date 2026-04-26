@@ -23,7 +23,6 @@ interface BreadcrumbItemData {
 
 function DashboardLayout({ username, onLogout }: {
   username: string | null;
-  merchantId: string | null;
   onLogout: () => void;
 }) {
   const { t } = useTranslation();

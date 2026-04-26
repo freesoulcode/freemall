@@ -12,7 +12,7 @@ import ProductFormPage from "./pages/ProductForm";
 import PlaceholderPage from "./pages/PlaceholderPage";
 import LanguageSwitcher from "./components/LanguageSwitcher";
 import {
-  ArrowUpDown, Tags, AlertTriangle, BarChart3,
+  Tags, AlertTriangle, BarChart3,
   FileText, RefreshCcw, Truck, Receipt,
   Paintbrush, TrendingUp, Users,
   Ticket, Megaphone, Share2,
@@ -63,17 +63,17 @@ function AuthRoutes({ isLoggedIn, handleLoginSuccess, pendingMerchantId, setPend
   );
 }
 
-function DashboardRoutes({ username, merchantId, onLogout }: {
+function DashboardRoutes({ username, onLogout }: {
   username: string | null;
-  merchantId: string | null;
   onLogout: () => void;
 }) {
   return (
     <Routes>
-      <Route element={<DashboardLayout username={username} merchantId={merchantId} onLogout={onLogout} />}>
+      <Route element={<DashboardLayout username={username} onLogout={onLogout} />}>
         <Route path="/" element={<DashboardPage />} />
-        <Route path="/product/status" element={merchantId ? <ProductListPage merchantId={merchantId} /> : null} />
-        <Route path="/product/publish" element={merchantId ? <ProductFormPage merchantId={merchantId} /> : null} />
+        <Route path="/product/status" element={<ProductListPage />} />
+        <Route path="/product/publish" element={<ProductFormPage />} />
+        <Route path="/product/edit/:productId" element={<ProductFormPage />} />
 
         {/* Placeholder pages */}
         <Route path="/product/category" element={<PlaceholderPage titleKey="menu.categoryBrand" descriptionKey="placeholder.categoryBrand" icon={Tags} />} />
@@ -139,7 +139,7 @@ function App() {
           )}
 
           {isLoggedIn ? (
-            <DashboardRoutes username={username} merchantId={merchantId} onLogout={handleLogout} />
+            <DashboardRoutes username={username} onLogout={handleLogout} />
           ) : (
             <AuthRoutes
               isLoggedIn={isLoggedIn}

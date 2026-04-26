@@ -1,7 +1,9 @@
 package io.github.freesoulcode.product.application.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.github.freesoulcode.product.application.request.CreateProductRequest;
 import io.github.freesoulcode.product.application.request.GetProductResponse;
+import io.github.freesoulcode.product.application.request.ProductQuery;
 import io.github.freesoulcode.product.application.request.UpdateProductRequest;
 
 import java.util.List;
@@ -20,4 +22,6 @@ public interface ProductApplicationService {
     void delete(Long productId);
 
     List<GetProductResponse> listByMerchant(Long merchantId);
+
+    IPage<GetProductResponse> search(ProductQuery query);
 }

@@ -16,6 +16,7 @@ public class GetProductResponse {
     private String description;
     private Integer status;
     private String statusName;
+    private String mainImage;
     private Instant createTime;
     private Instant updateTime;
     private List<SkuResponse> skus;

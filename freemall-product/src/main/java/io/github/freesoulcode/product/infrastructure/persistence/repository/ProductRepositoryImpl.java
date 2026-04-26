@@ -1,6 +1,8 @@
 package io.github.freesoulcode.product.infrastructure.persistence.repository;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.github.freesoulcode.product.domain.model.Product;
 import io.github.freesoulcode.product.domain.model.ProductStatus;
 import io.github.freesoulcode.product.domain.model.Sku;
@@ -31,12 +33,10 @@ public class ProductRepositoryImpl implements ProductRepository {
             return Optional.empty();
         }
 
-        // 查询SKU列表
         List<ProductSkuPO> skuPOList = skuMapper.selectList(
                 new LambdaQueryWrapper<ProductSkuPO>().eq(ProductSkuPO::getSpuId, productId)
         );
 
-        // 转换为领域模型
         Product product = convertToProduct(spuPO, skuPOList);
         return Optional.of(product);
     }
@@ -57,6 +57,40 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
+    public IPage<Product> searchPage(Long merchantId, String name, Integer status, Long categoryId, int page, int size) {
+        LambdaQueryWrapper<ProductSpuPO> wrapper = new LambdaQueryWrapper<ProductSpuPO>()
+                .eq(ProductSpuPO::getMerchantId, merchantId);
+        if (name != null && !name.isEmpty()) {
+            wrapper.like(ProductSpuPO::getName, name);
+        }
+        if (status != null) {
+            wrapper.eq(ProductSpuPO::getStatus, status);
+        }
+        if (categoryId != null) {
+            wrapper.eq(ProductSpuPO::getCategoryId, categoryId);
+        }
+        wrapper.orderByDesc(ProductSpuPO::getCreateTime);
+
+        Page<ProductSpuPO> pageParam = new Page<>(page, size);
+        IPage<ProductSpuPO> spuPage = spuMapper.selectPage(pageParam, wrapper);
+
+        // 转换为领域模型的 IPage
+        List<Product> products = spuPage.getRecords().stream()
+                .map(spu -> {
+                    List<ProductSkuPO> skuPOList = skuMapper.selectList(
+                            new LambdaQueryWrapper<ProductSkuPO>().eq(ProductSkuPO::getSpuId, spu.getId())
+                    );
+                    return convertToProduct(spu, skuPOList);
+                })
+                .collect(Collectors.toList());
+
+        Page<Product> resultPage = new Page<>(page, size);
+        resultPage.setRecords(products);
+        resultPage.setTotal(spuPage.getTotal());
+        return resultPage;
+    }
+
+    @Override
     public void save(Product product) {
         ProductSpuPO spuPO = convertToSpuPO(product);
         
@@ -67,7 +101,6 @@ public class ProductRepositoryImpl implements ProductRepository {
             spuMapper.updateById(spuPO);
         }
 
-        // 保存SKU
         if (product.getSkus() != null) {
             for (Sku sku : product.getSkus()) {
                 ProductSkuPO skuPO = convertToSkuPO(sku, product.getId());
@@ -96,8 +129,9 @@ public class ProductRepositoryImpl implements ProductRepository {
                 .id(spuPO.getId())
                 .merchantId(spuPO.getMerchantId())
                 .name(spuPO.getName())
-                .subTitle(null) // 数据库表没有这个字段，可以扩展
+                .subTitle(spuPO.getSubTitle())
                 .description(spuPO.getDescription())
+                .mainImage(spuPO.getMainImage())
                 .status(ProductStatus.fromCode(spuPO.getStatus()))
                 .createTime(spuPO.getCreateTime())
                 .updateTime(spuPO.getUpdateTime())
@@ -110,14 +144,14 @@ public class ProductRepositoryImpl implements ProductRepository {
                 .id(skuPO.getId())
                 .productId(skuPO.getSpuId())
                 .name(skuPO.getName())
-                .skuCode(skuPO.getName()) // 可根据需要生成编码
+                .skuCode(skuPO.getName())
                 .price(skuPO.getPrice() != null ? skuPO.getPrice().intValue() : 0)
                 .costPrice(skuPO.getOriginalPrice() != null ? skuPO.getOriginalPrice().intValue() : 0)
                 .stock(skuPO.getStock() != null ? skuPO.getStock() : 0)
                 .lockStock(0)
                 .availableStock(skuPO.getStock() != null ? skuPO.getStock() : 0)
                 .specImg(skuPO.getImage())
-                .skuAttributes(SkuAttributes.builder().build()) // 可从 spec 字段解析
+                .skuAttributes(SkuAttributes.builder().build())
                 .build();
     }
 
@@ -125,6 +159,7 @@ public class ProductRepositoryImpl implements ProductRepository {
         ProductSpuPO po = new ProductSpuPO();
         po.setId(product.getId());
         po.setName(product.getName());
+        po.setSubTitle(product.getSubTitle());
         po.setMerchantId(product.getMerchantId());
         po.setDescription(product.getDescription());
         po.setStatus(product.getStatus().getCode());

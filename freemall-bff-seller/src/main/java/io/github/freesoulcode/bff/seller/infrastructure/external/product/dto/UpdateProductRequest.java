@@ -1,27 +1,20 @@
 package io.github.freesoulcode.bff.seller.infrastructure.external.product.dto;
 
 import lombok.Data;
-import java.math.BigDecimal;
+
 import java.util.List;
 
 @Data
-public class RemoteProductResponse {
-    private String id;
-    private String merchantId;
+public class UpdateProductRequest {
+    private Long id;
     private String name;
     private String subTitle;
     private String description;
-    private Integer status;
-    private String statusName;
-    private String mainImage;
-    private String createTime;
-    private String updateTime;
-    private List<SkuResponse> skus;
+    private List<SkuRequest> skus;
 
     @Data
-    public static class SkuResponse {
-        private String id;
-        private String productId;
+    public static class SkuRequest {
+        private Long id;
         private String name;
         private String skuCode;
         private Integer price;

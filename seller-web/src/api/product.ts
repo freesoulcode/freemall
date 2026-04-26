@@ -8,6 +8,7 @@ export interface Product {
   description: string;
   status: number;
   statusName: string;
+  mainImage?: string;
   createTime?: string;
   updateTime?: string;
   skus: Sku[];
@@ -24,8 +25,15 @@ export interface Sku {
   specImg: string;
 }
 
+export interface PageResult<T> {
+  records: T[];
+  total: number;
+  current: number;
+  size: number;
+  pages: number;
+}
+
 export interface CreateProductParams {
-  merchantId: string;
   name: string;
   subTitle?: string;
   description?: string;
@@ -39,8 +47,42 @@ export interface CreateProductParams {
   }[];
 }
 
-export const getProductListApi = (merchantId: string): Promise<Product[]> => {
-  return request(`/product/merchant/${merchantId}`);
+export interface UpdateProductParams {
+  id: string;
+  name: string;
+  subTitle?: string;
+  description?: string;
+  skus?: {
+    id?: string;
+    name: string;
+    skuCode?: string;
+    price: number;
+    costPrice?: number;
+    stock: number;
+    specImg?: string;
+  }[];
+}
+
+export interface ProductSearchParams {
+  name?: string;
+  status?: number;
+  categoryId?: number;
+  page?: number;
+  size?: number;
+}
+
+export const getProductListApi = (): Promise<Product[]> => {
+  return request('/product/list');
+};
+
+export const searchProductsApi = (params: ProductSearchParams): Promise<PageResult<Product>> => {
+  const query = new URLSearchParams();
+  if (params.name) query.set('name', params.name);
+  if (params.status !== undefined) query.set('status', String(params.status));
+  if (params.categoryId) query.set('categoryId', String(params.categoryId));
+  query.set('page', String(params.page || 1));
+  query.set('size', String(params.size || 10));
+  return request(`/product/search?${query.toString()}`);
 };
 
 export const getProductDetailApi = (productId: string): Promise<Product> => {
@@ -54,7 +96,7 @@ export const createProductApi = (params: CreateProductParams): Promise<string> =
   }) as Promise<string>;
 };
 
-export const updateProductApi = (params: { id: string; name: string; description?: string }): Promise<void> => {
+export const updateProductApi = (params: UpdateProductParams): Promise<void> => {
   return request('/product', {
     method: 'PUT',
     body: JSON.stringify(params),

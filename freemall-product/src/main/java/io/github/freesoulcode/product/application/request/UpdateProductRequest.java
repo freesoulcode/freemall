@@ -8,6 +8,7 @@ import java.util.List;
 public class UpdateProductRequest {
     private Long id;
     private String name;
+    private String subTitle;
     private String description;
     private List<SkuRequest> skus;
 

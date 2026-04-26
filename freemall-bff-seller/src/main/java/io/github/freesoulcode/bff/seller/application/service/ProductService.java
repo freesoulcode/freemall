@@ -1,13 +1,15 @@
 package io.github.freesoulcode.bff.seller.application.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.github.freesoulcode.bff.seller.infrastructure.external.product.ProductClient;
+import io.github.freesoulcode.bff.seller.infrastructure.external.product.dto.CreateProductRequest;
 import io.github.freesoulcode.bff.seller.infrastructure.external.product.dto.RemoteProductResponse;
+import io.github.freesoulcode.bff.seller.infrastructure.external.product.dto.UpdateProductRequest;
 import io.github.freesoulcode.common.interfaces.Result;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -25,12 +27,17 @@ public class ProductService {
         return result.getData();
     }
 
-    public Long create(Map<String, Object> request) {
+    public Page<RemoteProductResponse> search(Long merchantId, String name, Integer status, Long categoryId, int page, int size) {
+        Result<Page<RemoteProductResponse>> result = productClient.search(merchantId, name, status, categoryId, page, size);
+        return result.getData();
+    }
+
+    public Long create(CreateProductRequest request) {
         Result<Long> result = productClient.create(request);
         return result.getData();
     }
 
-    public void update(Map<String, Object> request) {
+    public void update(UpdateProductRequest request) {
         productClient.update(request);
     }
 

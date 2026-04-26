@@ -36,6 +36,10 @@ public class Product {
      */
     private String description;
     /**
+     * 主图
+     */
+    private String mainImage;
+    /**
      * 商品状态
      */
     private ProductStatus status;
@@ -74,11 +78,12 @@ public class Product {
         this.status = ProductStatus.OFF_SHELF;
     }
 
-    public void update(String name, String description, List<Sku> skus) {
+    public void update(String name, String subTitle, String description, List<Sku> skus) {
         if (this.status == ProductStatus.ON_SHELF) {
             throw new BusinessException(BizErrorCode.PRODUCT_STATUS_INVALID, "上架商品不能修改");
         }
         this.name = name;
+        this.subTitle = subTitle;
         this.description = description;
         this.skus = skus;
     }

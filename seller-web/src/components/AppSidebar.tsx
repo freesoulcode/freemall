@@ -14,7 +14,6 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 import {
-  Package,
   ShoppingCart,
   LogOut,
   ChevronRight,

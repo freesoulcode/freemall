@@ -16,6 +16,7 @@ public class ProductSpuPO {
     @TableId(type = IdType.ASSIGN_ID)
     private Long id;
     private String name;
+    private String subTitle;
     private Long categoryId;
     private Long brandId;
     private Long merchantId;

@@ -1,15 +1,19 @@
 package io.github.freesoulcode.bff.seller.interfaces.web;
 
 import io.github.freesoulcode.bff.seller.application.service.ProductService;
+import io.github.freesoulcode.bff.seller.infrastructure.config.security.SellerUserDetails;
+import io.github.freesoulcode.bff.seller.infrastructure.external.product.dto.CreateProductRequest;
 import io.github.freesoulcode.bff.seller.infrastructure.external.product.dto.RemoteProductResponse;
+import io.github.freesoulcode.bff.seller.infrastructure.external.product.dto.UpdateProductRequest;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.github.freesoulcode.common.interfaces.Result;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @Tag(name = "商品管理", description = "商家商品管理接口")
 @RestController
@@ -26,21 +30,36 @@ public class ProductController {
     }
 
     @Operation(summary = "获取商家商品列表")
-    @GetMapping("/merchant/{merchantId}")
-    public Result<List<RemoteProductResponse>> listByMerchant(@PathVariable Long merchantId) {
-        return Result.success(productService.listByMerchant(merchantId));
+    @GetMapping("/list")
+    public Result<List<RemoteProductResponse>> listByMerchant(@AuthenticationPrincipal SellerUserDetails userDetails) {
+        return Result.success(productService.listByMerchant(userDetails.getId()));
+    }
+
+    @Operation(summary = "搜索商品（分页）")
+    @GetMapping("/search")
+    public Result<Page<RemoteProductResponse>> search(
+            @AuthenticationPrincipal SellerUserDetails userDetails,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) Integer status,
+            @RequestParam(required = false) Long categoryId,
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        return Result.success(productService.search(userDetails.getId(), name, status, categoryId, page, size));
     }
 
     @Operation(summary = "创建商品")
     @PostMapping
-    public Result<String> create(@RequestBody Map<String, Object> request) {
+    public Result<String> create(@AuthenticationPrincipal SellerUserDetails userDetails,
+                                 @RequestBody CreateProductRequest request) {
+        request.setMerchantId(userDetails.getId());
         Long id = productService.create(request);
         return Result.success(String.valueOf(id));
     }
 
     @Operation(summary = "更新商品")
     @PutMapping
-    public Result<Void> update(@RequestBody Map<String, Object> request) {
+    public Result<Void> update(@RequestBody UpdateProductRequest request) {
         productService.update(request);
         return Result.success();
     }

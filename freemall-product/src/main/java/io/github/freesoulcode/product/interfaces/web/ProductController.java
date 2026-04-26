@@ -1,8 +1,10 @@
 package io.github.freesoulcode.product.interfaces.web;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.github.freesoulcode.common.interfaces.Result;
 import io.github.freesoulcode.product.application.request.CreateProductRequest;
 import io.github.freesoulcode.product.application.request.GetProductResponse;
+import io.github.freesoulcode.product.application.request.ProductQuery;
 import io.github.freesoulcode.product.application.request.UpdateProductRequest;
 import io.github.freesoulcode.product.application.service.ProductApplicationService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,6 +32,12 @@ public class ProductController {
     @GetMapping("/merchant/{merchantId}")
     public Result<List<GetProductResponse>> listByMerchant(@PathVariable Long merchantId) {
         return Result.success(productApplicationService.listByMerchant(merchantId));
+    }
+
+    @Operation(summary = "搜索商品（分页）")
+    @GetMapping("/search")
+    public Result<IPage<GetProductResponse>> search(ProductQuery query) {
+        return Result.success(productApplicationService.search(query));
     }
 
     @Operation(summary = "创建商品")
